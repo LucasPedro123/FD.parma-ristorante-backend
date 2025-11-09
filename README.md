@@ -1,25 +1,9 @@
-# 🍽️ Restaurant App Backend
-
 Backend oficial do sistema de reservas de restaurante.  
 Desenvolvido com **ASP.NET Core 8**, **Entity Framework Core**, **SQL Server LocalDB** e **JWT Authentication**.
 
 ---
 
-## 🧭 Sumário
-- [Sobre o projeto](#-sobre-o-projeto)
-- [Arquitetura](#-arquitetura)
-- [Tecnologias utilizadas](#-tecnologias-utilizadas)
-- [Instalação e configuração](#-instalação-e-configuração)
-- [Configuração do banco de dados](#-configuração-do-banco-de-dados)
-- [Autenticação JWT](#-autenticação-jwt)
-- [Estrutura de pastas](#-estrutura-de-pastas)
-- [Rotas da API](#-rotas-da-api)
-- [Boas práticas](#-boas-práticas)
-- [Licença](#-licença)
-
----
-
-## 📘 Sobre o projeto
+## Sobre o projeto
 
 O **Restaurant App Backend** é a API responsável por gerenciar o sistema de autenticação, usuários e reservas do aplicativo de restaurante.  
 Ele fornece endpoints REST para:
@@ -31,7 +15,7 @@ Ele fornece endpoints REST para:
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 A aplicação segue o padrão **Clean Architecture simplificado**, dividida em camadas:
 
@@ -42,7 +26,7 @@ A aplicação segue o padrão **Clean Architecture simplificado**, dividida em c
 
 ---
 
-## ⚙️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 | Categoria | Ferramenta |
 |------------|-------------|
@@ -57,7 +41,7 @@ A aplicação segue o padrão **Clean Architecture simplificado**, dividida em c
 
 ---
 
-##  Autenticação JWT
+## Autenticação JWT
 
 A autenticação do sistema é feita por JWT (JSON Web Token).
 Cada login válido retorna um token que deve ser usado em requisições autenticadas.
