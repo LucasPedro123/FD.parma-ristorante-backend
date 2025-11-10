@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RestaurantAPI.DTOs
 {
-    public class UserRegisterDto
+    public class UserUpdateDto
     {
         [Required(ErrorMessage = "O primeiro nome é obrigatório.")]
         [StringLength(50, ErrorMessage = "O primeiro nome deve ter no máximo 50 caracteres.")]
@@ -19,12 +19,6 @@ namespace RestaurantAPI.DTOs
         [Required(ErrorMessage = "O número de telefone é obrigatório.")]
         [RegularExpression(@"^\d{10,11}$", ErrorMessage = "O telefone deve conter 10 ou 11 dígitos numéricos.")]
         public string Phone { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "A senha é obrigatória.")]
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "A senha deve ter pelo menos 8 caracteres.")]
-        [RegularExpression(@"^(?=.*[0-9])(?=.*[!@#$%^&*(),.?""{}|<>]).{8,}$",
-            ErrorMessage = "A senha deve conter pelo menos um número e um caractere especial.")]
-        public string Password { get; set; } = string.Empty;
 
         [Required]
         [RegularExpression("^(User|Admin)$", ErrorMessage = "O campo Role deve ser 'User' ou 'Admin'.")]
