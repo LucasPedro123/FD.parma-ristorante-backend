@@ -1,10 +1,52 @@
 @RestaurantAPI_HostAddress = http://localhost:5174
+@JWT_Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsdWNhc3BlZHJvZmVybmFuZGVzQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzYyNzQ0MjQ1LCJpc3MiOiJSZXN0YXVyYW50QVBJIiwiYXVkIjoiUmVzdGF1cmFudEFQSVVzZXJzIn0.B54t8yeOmgLNqrs3TK9HPQuxBRiK-ZXKoCSKwjPhkzo
 
-GET {{RestaurantAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+## Autenticação de Usuário
 
-###
-POST {{RestaurantAPI_HostAddress}}/api/AuthController/register
+### Registro de Usuário
+POST {{RestaurantAPI_HostAddress}}/api/auth/register
+Content-Type: application/json
+
 {
-    
+    "FirstName": "Lucas",
+    "LastName": "Pedro",
+    "Email": "lucas3@gmail.com",
+    "Phone": "11976589382",
+    "Password": "Lucas123@",
+    "Role": "User"
 }
+
+### Login de Usuário
+POST {{RestaurantAPI_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+    "Email": "lucaspedrofernandes@gmail.com",
+    "Password": "Admin123@"
+}
+
+## CRUD de usuários (Requer Token JWT)
+
+### Obter todos os usuário
+GET {{RestaurantAPI_HostAddress}}/api/Users
+Authorization: Bearer {{JWT_Token}}
+
+### Obter um usuário
+GET {{RestaurantAPI_HostAddress}}/api/Users/2
+Authorization: Bearer {{JWT_Token}}
+
+### Atualizar um usuário
+PATCH {{RestaurantAPI_HostAddress}}/api/Users/2
+Authorization: Bearer {{JWT_Token}}
+Content-Type: application/json
+
+{
+    "FirstName": "Lucas",
+    "LastName": "PedroX",
+    "Email": "lucaspedro@gmail.com",
+    "Phone": "11976589386"
+}
+
+### Excluir um usuário
+DELETE {{RestaurantAPI_HostAddress}}/api/Users/1
+Authorization: Bearer {{JWT_Token}}
