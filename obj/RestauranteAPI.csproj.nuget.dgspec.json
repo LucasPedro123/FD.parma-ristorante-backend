@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestauranteAPI.csproj": {}
+    "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestaurantAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestauranteAPI.csproj": {
+    "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestaurantAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestauranteAPI.csproj",
-        "projectName": "RestauranteAPI",
-        "projectPath": "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestauranteAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestaurantAPI.csproj",
+        "projectName": "RestaurantAPI",
+        "projectPath": "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\RestaurantAPI.csproj",
         "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Pichau\\Documents\\GitHub\\restaurant-app-backend\\obj\\",
         "projectStyle": "PackageReference",
@@ -58,9 +58,17 @@
               "target": "Package",
               "version": "[9.0.10, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.14.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.14.0, )"
             }
           },
           "imports": [

@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("RestauranteAPI")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("RestaurantAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3080daf9e0cc18e2882af44928a7c9396144dc93")]
-[assembly: System.Reflection.AssemblyProductAttribute("RestauranteAPI")]
-[assembly: System.Reflection.AssemblyTitleAttribute("RestauranteAPI")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2b427e3771703bfc5ed4deb8ed449cceccefe5f")]
+[assembly: System.Reflection.AssemblyProductAttribute("RestaurantAPI")]
+[assembly: System.Reflection.AssemblyTitleAttribute("RestaurantAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
