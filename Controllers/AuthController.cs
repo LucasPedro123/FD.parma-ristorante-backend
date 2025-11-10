@@ -27,7 +27,7 @@ namespace RestaurantAPI.Controllers
         public async Task<IActionResult> Register(UserRegisterDto dto)
         {
             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
-                return BadRequest("Email already registered.");
+                return BadRequest("Email já cadastrado.");
 
             var user = new User
             {
@@ -42,7 +42,7 @@ namespace RestaurantAPI.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "User registered successfully." });
+            return Ok(new { message = "Cadastro criado com sucesso!" });
         }
 
         [HttpPost("login")]
@@ -50,8 +50,9 @@ namespace RestaurantAPI.Controllers
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials.");
+                return Unauthorized("Credenciais inválidas.");
 
+            // Garante que o token incluirá a role
             var token = GenerateJwtToken(user);
 
             var userDto = new UserDto
@@ -64,7 +65,18 @@ namespace RestaurantAPI.Controllers
                 Role = user.Role
             };
 
-            return Ok(new { token, user = userDto });
+            return Ok(new
+            {
+                token,
+                user = userDto,
+                isAdmin = user.Role == "Admin"
+            });
+        }
+
+
+        public async Task<IActionResult> Logout()
+        {
+            return Ok(new { message = "Logout realizado com sucesso!" });
         }
 
         private string GenerateJwtToken(User user)
@@ -88,6 +100,29 @@ namespace RestaurantAPI.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        [HttpPost("create-admin")]
+        public async Task<IActionResult> CreateAdmin()
+        {
+            if (!_context.Users.Any(u => u.Role == "Admin"))
+            {
+                var admin = new User
+                {
+                    FirstName = "System",
+                    LastName = "Admin",
+                    Email = "lucaspedrofernandes@gmail.com",
+                    Phone = "0000000000",
+                    Role = "Admin",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123@")
+                };
+
+                _context.Users.Add(admin);
+                await _context.SaveChangesAsync();
+                return Ok("✅ Admin Criado!");
+            }
+
+            return BadRequest("Admin já existe.");
         }
     }
 }
