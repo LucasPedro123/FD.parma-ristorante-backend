@@ -8,5 +8,6 @@ namespace RestaurantAPI.Data
         public RestaurantContext(DbContextOptions<RestaurantContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Cardapio> Cardapios { get; set; }
     }
 }
