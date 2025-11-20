@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI.Data;
-using RestaurantAPI.DTOs;
+using RestaurantAPI.Dtos.Users;
 using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Controllers
@@ -10,11 +10,11 @@ namespace RestaurantAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "Admin")]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly RestaurantContext _context;
 
-        public UsersController(RestaurantContext context)
+        public UserController(RestaurantContext context)
         {
             _context = context;
         }
@@ -34,7 +34,7 @@ namespace RestaurantAPI.Controllers
                 })
                 .ToListAsync();
 
-            return Ok(users);
+            return Ok(new { message = "ok" });
         }
 
         [HttpGet("{id}")]
