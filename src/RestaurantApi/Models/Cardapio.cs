@@ -2,12 +2,12 @@ namespace RestaurantAPI.Models
 {
     public class Cardapio
     {
-        public int Id { get; set; }
-        public string Nome { get; set; } = string.Empty;
-        public string Descricao { get; set; } = string.Empty;
-        public decimal Preco { get; set; }
-        public string Categoria { get; set; } = string.Empty;
-        public bool Ativo { get; set; } = true;
-        public string ImagemUrl { get; set; } = string.Empty;
+        public int Id { get; set; } = default!;
+        public string Nome { get; set; } = default!;
+        public string Descricao { get; set; } = default!;
+        public decimal Preco { get; set; } = default!;
+        public string Categoria { get; set; } = default!;
+        public bool Disponivel { get; set; } = true;
+        public string ImagemUrl { get; set; } = default!;
     }
 }
