@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI.Data;
-using RestaurantAPI.DTOs;
+using RestaurantAPI.Dtos.Users;
 using RestaurantAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -52,7 +52,6 @@ namespace RestaurantAPI.Controllers
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return Unauthorized("Credenciais inválidas.");
 
-            // Garante que o token incluirá a role
             var token = GenerateJwtToken(user);
 
             var userDto = new UserDto
@@ -73,14 +72,21 @@ namespace RestaurantAPI.Controllers
             });
         }
 
-
-        public async Task<IActionResult> Logout()
+        [HttpPost("logout")]
+        public IActionResult Logout() 
         {
             return Ok(new { message = "Logout realizado com sucesso!" });
         }
 
         private string GenerateJwtToken(User user)
         {
+            var jwtKey = _config["Jwt:Key"];
+            var jwtIssuer = _config["Jwt:Issuer"];
+            var jwtAudience = _config["Jwt:Audience"];
+
+            if (jwtKey is null || jwtIssuer is null || jwtAudience is null)
+                throw new Exception("Configurações JWT ausentes no appsettings.json");
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -88,13 +94,13 @@ namespace RestaurantAPI.Controllers
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                _config["Jwt:Issuer"],
-                _config["Jwt:Audience"],
-                claims,
+                issuer: jwtIssuer,
+                audience: jwtAudience,
+                claims: claims,
                 expires: DateTime.UtcNow.AddHours(4),
                 signingCredentials: creds
             );
