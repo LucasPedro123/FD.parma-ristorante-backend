@@ -1,12 +1,12 @@
-using RestaurantAPI.Models;
-using FD.ParmaRistorante.Services;
+using RestaurantAPI.Services;
+using RestaurantAPI.Dtos.Cardapio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FD.ParmaRistorante.Controllers
+namespace RestaurantAPI.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CardapioController : ControllerBase
     {
         private readonly CardapioService _service;
@@ -16,37 +16,39 @@ namespace FD.ParmaRistorante.Controllers
             _service = service;
         }
 
-        //todos os usuários podem consultar
+        //user functions
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Get()
         {
             return Ok(await _service.GetAllAsync());
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [AllowAnonymous] 
         public async Task<IActionResult> GetById(int id)
         {
             var item = await _service.GetByIdAsync(id);
-            return item == null ? NotFound() : Ok(item);
+            if (item == null) return NotFound();
+            return Ok(item);
         }
 
-        //apenas o admin pode criar, atualizar e deletar
+        //admin functions
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create(Cardapio cardapio)
+        public async Task<IActionResult> Create(CardapioCreateDto dto)
         {
-            return Ok(await _service.CreateAsync(cardapio));
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(int id, Cardapio model)
+        public async Task<IActionResult> Update(int id, CardapioCreateDto dto)
         {
-            model.Id = id;
-            var updated = await _service.UpdateAsync(model);
-            return updated == null ? NotFound() : Ok(updated);
+            var result = await _service.UpdateAsync(id, dto);
+            if (!result) return NotFound();
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
@@ -54,7 +56,8 @@ namespace FD.ParmaRistorante.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _service.DeleteAsync(id);
-            return !result ? NotFound() : Ok();
+            if (!result) return NotFound();
+            return NoContent();
         }
     }
 }
