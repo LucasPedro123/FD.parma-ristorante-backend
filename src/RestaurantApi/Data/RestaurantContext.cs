@@ -9,5 +9,7 @@ namespace RestaurantAPI.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Cardapio> Cardapios { get; set; }
+        public DbSet<Reserva> Reservas { get; set; }
+
     }
 }
