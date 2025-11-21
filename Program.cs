@@ -4,8 +4,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RestaurantAPI.Middlewares;
+using RestaurantAPI.Repositories;
+using RestaurantAPI.Services;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<MenuService>();
 
 builder.Services.AddControllers();
 
@@ -50,11 +56,28 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.WebRootPath, "menu-images")),
+    RequestPath = "/menu-images"
+});
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+// pipeline
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.MapControllers();
+
 app.Run();
+
