@@ -52,7 +52,6 @@ namespace RestaurantAPI.Controllers
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return Unauthorized("Credenciais inválidas.");
 
-            // Garante que o token incluirá a role
             var token = GenerateJwtToken(user);
 
             var userDto = new UserDto
@@ -119,7 +118,7 @@ namespace RestaurantAPI.Controllers
 
                 _context.Users.Add(admin);
                 await _context.SaveChangesAsync();
-                return Ok("✅ Admin Criado!");
+                return Ok("Admin Criado!");
             }
 
             return BadRequest("Admin já existe.");
