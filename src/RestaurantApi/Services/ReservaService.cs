@@ -13,7 +13,7 @@ namespace RestaurantAPI.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Reserva>> GetAllAsync()
+        public async Task<List<Reserva>> GetAllAsync()
         {
             return await _context.Reservas.ToListAsync();
         }
@@ -23,9 +23,36 @@ namespace RestaurantAPI.Services
             return await _context.Reservas.FindAsync(id);
         }
 
-        public async Task<Reserva> CreateAsync(Reserva reserva)
+        public async Task<Reserva> CreateAsync(ReservaRequest request)
         {
+            var reserva = new Reserva
+            {
+                Nome = request.Nome,
+                Telefone = request.Telefone,
+                QuantidadePessoas = request.QuantidadePessoas,
+                DataReserva = request.DataReserva,
+                Observacoes = request.Observacoes
+            };
+
             _context.Reservas.Add(reserva);
+            await _context.SaveChangesAsync();
+
+            return reserva;
+        }
+
+        public async Task<Reserva?> UpdateAsync(int id, ReservaRequest request)
+        {
+            var reserva = await _context.Reservas.FindAsync(id);
+
+            if (reserva == null)
+                return null;
+
+            reserva.Nome = request.Nome;
+            reserva.Telefone = request.Telefone;
+            reserva.QuantidadePessoas = request.QuantidadePessoas;
+            reserva.DataReserva = request.DataReserva;
+            reserva.Observacoes = request.Observacoes;
+
             await _context.SaveChangesAsync();
             return reserva;
         }

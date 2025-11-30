@@ -16,8 +16,8 @@ namespace RestaurantAPI.Models
         public DateTime DataReserva { get; set; }
 
         [Required]
-        public int NumeroPessoas { get; set; }
-
+        public int QuantidadePessoas { get; set; }
+        public string Telefone { get; set; }
         public string Observacoes { get; set; } = string.Empty;
     }
 }
