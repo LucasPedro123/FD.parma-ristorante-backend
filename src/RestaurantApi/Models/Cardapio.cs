@@ -8,6 +8,6 @@ namespace RestaurantAPI.Models
         public decimal Preco { get; set; } = default!;
         public string Categoria { get; set; } = default!;
         public bool Disponivel { get; set; } = true;
-        public string ImagemUrl { get; set; } = default!;
+        
     }
 }

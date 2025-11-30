@@ -7,5 +7,6 @@ namespace RestaurantAPI.Dtos.Cardapio
         public decimal Preco { get; set; } = default!;
         public bool Disponivel { get; set; } = default!;
         public string Categoria { get; set; } = default!;
+        
     }
 }
