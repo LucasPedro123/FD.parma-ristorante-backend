@@ -40,18 +40,60 @@ namespace RestaurantAPI.Controllers
         //view users
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<ReservaResponse>>> Get()
         {
             var reservas = await _service.GetAllAsync();
-            return Ok(reservas);
+
+            return Ok(reservas.Select(r => new ReservaResponse
+            {
+                Id = r.Id,
+                Nome = r.Nome,
+                Telefone = r.Telefone,
+                QuantidadePessoas = r.QuantidadePessoas,
+                DataReserva = r.DataReserva,
+                Observacoes = r.Observacoes
+            }));
         }
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<ReservaResponse>> GetById(int id)
         {
             var reserva = await _service.GetByIdAsync(id);
-            return reserva == null ? NotFound() : Ok(reserva);
+
+            if (reserva == null)
+                return NotFound();
+
+            return Ok(new ReservaResponse
+            {
+                Id = reserva.Id,
+                Nome = reserva.Nome,
+                Telefone = reserva.Telefone,
+                QuantidadePessoas = reserva.QuantidadePessoas,
+                DataReserva = reserva.DataReserva,
+                Observacoes = reserva.Observacoes
+            });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create([FromBody] ReservaRequest request)
+        {
+            var reserva = await _service.CreateAsync(request);
+            return CreatedAtAction(nameof(GetById), new { id = reserva.Id }, reserva);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, [FromBody] ReservaRequest request)
+        {
+            var updated = await _service.UpdateAsync(id, request);
+            return updated == null ? NotFound() : Ok(updated);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var success = await _service.DeleteAsync(id);
+            return success ? NoContent() : NotFound();
         }
     }
 }
