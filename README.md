@@ -65,13 +65,20 @@ O token contém as seguintes claims:
 
 **Estrutura do Token**:
 ````bash
-RestaurantAPI/
+src/RestaurantAPI/
  ├── Controllers/                   # Controle de todas funções do sistema
- │    └── AuthController.cs         
+ │    ├── AuthController.cs 
+ │    └── UsersController.cs         
  ├── Data/
+ │    ├── Migrations.package
  │    └── RestaurantContext.cs      # Contexto EF Core
+ ├── Dtos/
+ ├── Middlewares/
+ │    └── ExceptionMiddleware.cs
  ├── Models/
  │    └── User.cs                   # Entidade User
+ ├── Properties/
+ │    └── lauchSettings.json  
  ├── Services/
  │    └── TokenService.cs           # Geração do JWT
  ├── appsettings.json               # Configurações do projeto
@@ -82,5 +89,9 @@ RestaurantAPI/
 
 ## Autor
 **Lucas Fernandes**
-Desenvolvedor Full Stack | React • React Native • Node.js • ASP.NET
+| Desenvolvedor Full Stack - React • React Native • Node.js • ASP.NET
 - lucaspedrofernandes@gmail.com
+##
+**Lucas Silva**
+| Desenvolvedor Backend - Java • Spring Boot • Blockchain • DTA
+- lucas.dasilva09@hotmail.com

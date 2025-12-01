@@ -1,5 +1,6 @@
 @RestaurantAPI_HostAddress = http://localhost:5174
-@JWT_Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsdWNhc3BlZHJvZmVybmFuZGVzQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzYyNzQ0MjQ1LCJpc3MiOiJSZXN0YXVyYW50QVBJIiwiYXVkIjoiUmVzdGF1cmFudEFQSVVzZXJzIn0.B54t8yeOmgLNqrs3TK9HPQuxBRiK-ZXKoCSKwjPhkzo
+@JWT_Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJsdWNhc3BlZHJvZmVybmFuZGVzQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzYzNzA1OTc4LCJpc3MiOiJSZXN0YXVyYW50QVBJIiwiYXVkIjoiUmVzdGF1cmFudEFQSVVzZXJzIn0.clbbzoU4DcnR5GypQg4l17YxYHykXjM4Nq8Y0-h2CMc
+@image = ./pepperoni.jpg
 
 ## Autenticação de Usuário
 
@@ -49,4 +50,52 @@ Content-Type: application/json
 
 ### Excluir um usuário
 DELETE {{RestaurantAPI_HostAddress}}/api/Users/1
+Authorization: Bearer {{JWT_Token}}
+
+## CRUD de Itens do Cardápio (Requer Token JWT)
+### Obter todos os itens do cardápio
+GET {{RestaurantAPI_HostAddress}}/api/menu
+Authorization: Bearer {{JWT_Token}}
+
+### Obter um item do cardápio
+GET {{RestaurantAPI_HostAddress}}/api/menu/1
+Authorization: Bearer {{JWT_Token}}
+
+### Criar um item do cardápio
+POST {{RestaurantAPI_HostAddress}}/api/menu
+Authorization: Bearer {{JWT_Token}}
+Content-Type: multipart/form-data; boundary=----Boundary123
+
+------Boundary123
+Content-Disposition: form-data; name="name"
+
+Pizza de Calabresa
+------Boundary123
+Content-Disposition: form-data; name="description"
+
+Deliciosa pizza com calabresa, queijo e molho especial.
+------Boundary123
+Content-Disposition: form-data; name="price"
+
+29
+------Boundary123
+Content-Disposition: form-data; name="image"; filename="pepperoni.png"
+Content-Type: image/png
+
+<{{image}}
+------Boundary123--
+
+### Atualizar um item do cardápio
+PATCH {{RestaurantAPI_HostAddress}}/api/menu/1
+Authorization: Bearer {{JWT_Token}}
+Content-Type: application/json
+
+{
+    "name": "Pizza de Calabresa Grande",
+    "description": "Deliciosa pizza grande com calabresa, queijo e molho especial.",
+    "price": 39.90
+}
+
+### Excluir um item do cardápio
+DELETE {{RestaurantAPI_HostAddress}}/api/menu/10
 Authorization: Bearer {{JWT_Token}}

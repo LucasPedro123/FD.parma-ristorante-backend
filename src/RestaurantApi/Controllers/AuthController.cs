@@ -125,7 +125,7 @@ namespace RestaurantAPI.Controllers
 
                 _context.Users.Add(admin);
                 await _context.SaveChangesAsync();
-                return Ok("✅ Admin Criado!");
+                return Ok("Admin Criado!");
             }
 
             return BadRequest("Admin já existe.");

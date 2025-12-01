@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantAPI.Data;
 
@@ -10,22 +11,20 @@ using RestaurantAPI.Data;
 namespace RestaurantAPI.Migrations
 {
     [DbContext(typeof(RestaurantContext))]
-    partial class RestaurantContextModelSnapshot : ModelSnapshot
+    [Migration("20251121003925_CreateMenuItemTable")]
+    partial class CreateMenuItemTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-<<<<<<< HEAD:src/RestaurantApi/Data/Migrations/RestaurantContextModelSnapshot.cs
-            modelBuilder.Entity("RestaurantAPI.Models.Cardapio", b =>
-=======
             modelBuilder.Entity("RestaurantAPI.Models.MenuItem", b =>
->>>>>>> dev:Migrations/RestaurantContextModelSnapshot.cs
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,28 +32,6 @@ namespace RestaurantAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-<<<<<<< HEAD:src/RestaurantApi/Data/Migrations/RestaurantContextModelSnapshot.cs
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagemUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Preco")
-=======
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -68,16 +45,11 @@ namespace RestaurantAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
->>>>>>> dev:Migrations/RestaurantContextModelSnapshot.cs
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD:src/RestaurantApi/Data/Migrations/RestaurantContextModelSnapshot.cs
-                    b.ToTable("Cardapios");
-=======
                     b.ToTable("MenuItems");
->>>>>>> dev:Migrations/RestaurantContextModelSnapshot.cs
                 });
 
             modelBuilder.Entity("RestaurantAPI.Models.User", b =>
